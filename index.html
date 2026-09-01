@@ -1,213 +1,1311 @@
 <!doctype html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#101828">
 
-  <title>Card Vault Scanner</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-        crossorigin="anonymous">
+  <meta
+    name="theme-color"
+    content="#101828"
+  >
 
-  <link rel="stylesheet" href="css/style.css">
+  <title>
+    Card Vault Scanner
+  </title>
+
+
+  <!-- =========================================
+       BOOTSTRAP 5.3.8
+  ========================================== -->
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous"
+  >
+
+
+  <!-- =========================================
+       CARD VAULT CSS
+  ========================================== -->
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+
 </head>
+
+
 
 <body>
 
+
+
   <main class="app-shell">
 
-    <!-- HEADER -->
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
     <header class="app-header">
+
+
       <div>
-        <p class="eyebrow mb-1">PERSONAL COLLECTION</p>
-        <h1 class="app-title mb-0">Card Vault</h1>
+
+        <p class="eyebrow mb-1">
+          PERSONAL COLLECTION
+        </p>
+
+        <h1 class="app-title mb-0">
+          Card Vault
+        </h1>
+
       </div>
 
-      <button class="icon-btn" id="headerRefreshBtn" type="button"
-              aria-label="Reset scanner" title="Reset scanner">
+
+      <button
+        class="icon-btn"
+        id="headerRefreshBtn"
+        type="button"
+        aria-label="Reset scanner"
+        title="Reset scanner"
+      >
+
         ↻
+
       </button>
+
+
     </header>
 
 
-    <!-- SCANNER SCREEN -->
-    <section id="scannerScreen" class="screen active-screen">
+
+    <!-- =====================================
+         SCREEN 1
+         SCANNER
+    ====================================== -->
+
+    <section
+      id="scannerScreen"
+      class="screen active-screen"
+    >
+
 
       <div class="scanner-intro">
+
         <span class="status-dot"></span>
+
         Ready to scan
+
       </div>
+
+
 
       <div class="camera-card">
 
-        <div class="camera-stage" id="cameraStage">
 
-          <video id="cameraPreview"
-                 autoplay
-                 playsinline
-                 muted></video>
+        <!-- CAMERA VIEW -->
 
-          <img id="capturedImage"
-               class="captured-image d-none"
-               alt="Captured card preview">
+        <div
+          class="camera-stage"
+          id="cameraStage"
+        >
 
-          <div id="cameraPlaceholder" class="camera-placeholder">
-            <div class="placeholder-icon">▣</div>
-            <h2>Scan a card</h2>
-            <p>Photograph the front of the card to begin.</p>
+
+          <video
+            id="cameraPreview"
+            autoplay
+            playsinline
+            muted>
+          </video>
+
+
+
+          <img
+            id="capturedImage"
+            class="captured-image d-none"
+            alt="Captured card preview"
+          >
+
+
+
+          <!-- CAMERA PLACEHOLDER -->
+
+          <div
+            id="cameraPlaceholder"
+            class="camera-placeholder"
+          >
+
+
+            <div class="placeholder-icon">
+
+              ▣
+
+            </div>
+
+
+            <h2>
+              Scan a card
+            </h2>
+
+
+            <p>
+              Photograph the front of the card to begin.
+            </p>
+
+
           </div>
 
-          <div class="card-guide" aria-hidden="true">
-            <span class="guide-corner top-left"></span>
-            <span class="guide-corner top-right"></span>
-            <span class="guide-corner bottom-left"></span>
-            <span class="guide-corner bottom-right"></span>
+
+
+          <!-- CARD ALIGNMENT GUIDE -->
+
+          <div
+            class="card-guide"
+            aria-hidden="true"
+          >
+
+
+            <span
+              class="guide-corner top-left">
+            </span>
+
+
+            <span
+              class="guide-corner top-right">
+            </span>
+
+
+            <span
+              class="guide-corner bottom-left">
+            </span>
+
+
+            <span
+              class="guide-corner bottom-right">
+            </span>
+
+
           </div>
+
 
         </div>
+
+
+
+        <!-- CAMERA CONTROLS -->
 
         <div class="scanner-controls">
 
-          <button id="startCameraBtn"
-                  class="btn btn-dark action-button">
+
+          <button
+            id="startCameraBtn"
+            class="btn btn-dark action-button"
+            type="button"
+          >
+
             Open Camera
+
           </button>
 
-          <button id="captureBtn"
-                  class="capture-button d-none"
-                  type="button"
-                  aria-label="Capture card photo">
+
+
+          <button
+            id="captureBtn"
+            class="capture-button d-none"
+            type="button"
+            aria-label="Capture card photo"
+          >
+
             <span></span>
+
           </button>
 
-          <button id="retakeBtn"
-                  class="btn btn-outline-dark action-button d-none">
+
+
+          <button
+            id="retakeBtn"
+            class="btn btn-outline-dark action-button d-none"
+            type="button"
+          >
+
             Retake
+
           </button>
+
 
         </div>
+
 
       </div>
 
 
-      <!-- RESULT / PLACEHOLDER FOR EBAY LATER -->
-      <section id="scanResult" class="result-card d-none">
-        <div class="result-heading">
-          <div>
-            <p class="eyebrow mb-1">SCAN CAPTURED</p>
-            <h2 class="h5 mb-0">Ready for identification</h2>
+
+      <!-- =====================================
+           MOBILE CAMERA FALLBACK
+      ====================================== -->
+
+      <input
+        id="mobileCaptureInput"
+        class="visually-hidden"
+        type="file"
+        accept="image/*"
+        capture="environment"
+      >
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         SCREEN 2
+         EBAY IDENTIFICATION LOADING
+    ====================================== -->
+
+    <section
+      id="lookupScreen"
+      class="screen"
+    >
+
+
+      <div class="lookup-card">
+
+
+        <!-- SPORTS ANIMATION -->
+
+        <div
+          class="sports-loader"
+          aria-hidden="true"
+        >
+
+
+          <div class="loader-ball baseball-loader">
+
+            ⚾
+
           </div>
-          <span class="badge text-bg-success">Photo saved</span>
+
+
+          <div class="loader-ball football-loader">
+
+            🏈
+
+          </div>
+
+
+          <div class="loader-ball basketball-loader">
+
+            🏀
+
+          </div>
+
+
         </div>
 
-        <p class="result-copy">
-          In the next stage, this image will be sent to our server and used
-          to find matching eBay listings.
+
+
+        <p class="eyebrow mb-2">
+
+          CARD IDENTIFICATION
+
         </p>
 
-        <div class="mock-value-row">
-          <div>
-            <span class="value-label">eBay Market Estimate</span>
-            <strong>—</strong>
+
+
+        <h2 id="lookupTitle">
+
+          Searching eBay...
+
+        </h2>
+
+
+
+        <p
+          id="lookupMessage"
+          class="lookup-message"
+        >
+
+          Comparing your card with matching listings.
+
+        </p>
+
+
+
+        <!-- ANIMATED PROGRESS -->
+
+        <div class="lookup-progress">
+
+
+          <div
+            class="lookup-progress-bar">
           </div>
 
-          <div>
-            <span class="value-label">Matches</span>
-            <strong>—</strong>
-          </div>
+
         </div>
 
-        <button class="btn btn-primary w-100 mt-3" disabled>
-          eBay Lookup Coming Next
+
+
+        <!-- ERROR MESSAGE -->
+
+        <div
+          id="lookupError"
+          class="alert alert-danger mt-4 d-none"
+          role="alert"
+        >
+        </div>
+
+
+
+        <button
+          id="lookupRetryBtn"
+          class="btn btn-dark w-100 mt-3 d-none"
+          type="button"
+        >
+
+          Try Search Again
+
         </button>
-      </section>
 
 
-      <!-- HIDDEN MOBILE CAMERA INPUT FALLBACK -->
-      <input id="mobileCaptureInput"
-             class="visually-hidden"
-             type="file"
-             accept="image/*"
-             capture="environment">
+      </div>
+
 
     </section>
 
 
-    <!-- COLLECTION SCREEN -->
-    <section id="collectionScreen" class="screen">
+
+    <!-- =====================================
+         SCREEN 3
+         POSSIBLE CARD MATCH
+    ====================================== -->
+
+    <section
+      id="matchScreen"
+      class="screen"
+    >
+
+
+      <div class="match-heading">
+
+
+        <p class="eyebrow mb-1">
+
+          POSSIBLE MATCH
+
+        </p>
+
+
+        <h2>
+
+          Is this your card?
+
+        </h2>
+
+
+        <p>
+
+          Review the eBay match before continuing.
+
+        </p>
+
+
+      </div>
+
+
+
+      <div class="candidate-card">
+
+
+        <!-- EBAY MATCH IMAGE -->
+
+        <div class="candidate-image-wrapper">
+
+
+          <img
+            id="candidateImage"
+            src=""
+            alt="Possible card match"
+          >
+
+
+        </div>
+
+
+
+        <!-- MATCH INFORMATION -->
+
+        <div class="candidate-content">
+
+
+          <span
+            id="matchPosition"
+            class="match-position"
+          >
+
+            Match 1
+
+          </span>
+
+
+
+          <h3 id="candidateTitle">
+
+            Card title
+
+          </h3>
+
+
+
+          <div class="candidate-stats">
+
+
+            <div>
+
+
+              <span>
+
+                eBay Price
+
+              </span>
+
+
+              <strong id="candidatePrice">
+
+                —
+
+              </strong>
+
+
+            </div>
+
+
+
+            <div>
+
+
+              <span>
+
+                Condition
+
+              </span>
+
+
+              <strong id="candidateCondition">
+
+                —
+
+              </strong>
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <a
+            id="candidateLink"
+            class="candidate-ebay-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+
+            View eBay Listing
+
+          </a>
+
+
+
+          <button
+            id="confirmMatchBtn"
+            class="btn btn-success w-100 mt-4"
+            type="button"
+          >
+
+            Yes — This Is My Card
+
+          </button>
+
+
+
+          <button
+            id="nextMatchBtn"
+            class="btn btn-outline-dark w-100 mt-2"
+            type="button"
+          >
+
+            No — Show Another Match
+
+          </button>
+
+
+
+          <button
+            id="scanAgainBtn"
+            class="btn btn-link w-100 mt-2"
+            type="button"
+          >
+
+            Scan Again
+
+          </button>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         SCREEN 4
+         CONFIRM CARD DETAILS
+    ====================================== -->
+
+    <section
+      id="detailsScreen"
+      class="screen"
+    >
+
+
+      <div class="details-heading">
+
+
+        <p class="eyebrow mb-1">
+
+          CONFIRM CARD
+
+        </p>
+
+
+        <h2>
+
+          Check the details
+
+        </h2>
+
+
+        <p>
+
+          Make sure everything is correct before adding
+          the card to your vault.
+
+        </p>
+
+
+      </div>
+
+
+
+      <div class="details-card">
+
+
+        <!-- ORIGINAL SCANNED IMAGE -->
+
+        <img
+          id="detailsPhoto"
+          class="details-photo"
+          src=""
+          alt="Scanned card"
+        >
+
+
+
+        <!-- MARKET VALUE -->
+
+        <div class="market-summary">
+
+
+          <div>
+
+
+            <span>
+
+              eBay Market Estimate
+
+            </span>
+
+
+            <strong id="marketEstimateDisplay">
+
+              —
+
+            </strong>
+
+
+          </div>
+
+
+
+          <div>
+
+
+            <span>
+
+              Comparable Listings
+
+            </span>
+
+
+            <strong id="marketMatchCount">
+
+              —
+
+            </strong>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             CARD INFORMATION FORM
+        ================================== -->
+
+        <form id="cardDetailsForm">
+
+
+
+          <!-- TITLE -->
+
+          <div class="mb-3">
+
+
+            <label
+              for="cardTitle"
+              class="form-label"
+            >
+
+              Card Title
+
+            </label>
+
+
+            <input
+              id="cardTitle"
+              class="form-control"
+              type="text"
+              required
+            >
+
+
+          </div>
+
+
+
+          <!-- SPORT + YEAR -->
+
+          <div class="row">
+
+
+            <div class="col-6 mb-3">
+
+
+              <label
+                for="cardSport"
+                class="form-label"
+              >
+
+                Sport
+
+              </label>
+
+
+              <select
+                id="cardSport"
+                class="form-select"
+              >
+
+
+                <option value="">
+
+                  Select
+
+                </option>
+
+
+                <option value="Baseball">
+
+                  Baseball
+
+                </option>
+
+
+                <option value="Football">
+
+                  Football
+
+                </option>
+
+
+                <option value="Basketball">
+
+                  Basketball
+
+                </option>
+
+
+                <option value="Hockey">
+
+                  Hockey
+
+                </option>
+
+
+                <option value="Soccer">
+
+                  Soccer
+
+                </option>
+
+
+                <option value="Other">
+
+                  Other
+
+                </option>
+
+
+              </select>
+
+
+            </div>
+
+
+
+            <div class="col-6 mb-3">
+
+
+              <label
+                for="cardYear"
+                class="form-label"
+              >
+
+                Year
+
+              </label>
+
+
+              <input
+                id="cardYear"
+                class="form-control"
+                type="text"
+                inputmode="numeric"
+              >
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- PLAYER -->
+
+          <div class="mb-3">
+
+
+            <label
+              for="cardPlayer"
+              class="form-label"
+            >
+
+              Player
+
+            </label>
+
+
+            <input
+              id="cardPlayer"
+              class="form-control"
+              type="text"
+            >
+
+
+          </div>
+
+
+
+          <!-- SET -->
+
+          <div class="mb-3">
+
+
+            <label
+              for="cardSet"
+              class="form-label"
+            >
+
+              Brand / Set
+
+            </label>
+
+
+            <input
+              id="cardSet"
+              class="form-control"
+              type="text"
+            >
+
+
+          </div>
+
+
+
+          <!-- CARD NUMBER + CONDITION -->
+
+          <div class="row">
+
+
+            <div class="col-6 mb-3">
+
+
+              <label
+                for="cardNumber"
+                class="form-label"
+              >
+
+                Card #
+
+              </label>
+
+
+              <input
+                id="cardNumber"
+                class="form-control"
+                type="text"
+              >
+
+
+            </div>
+
+
+
+            <div class="col-6 mb-3">
+
+
+              <label
+                for="cardCondition"
+                class="form-label"
+              >
+
+                Condition
+
+              </label>
+
+
+              <input
+                id="cardCondition"
+                class="form-control"
+                type="text"
+              >
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- PARALLEL -->
+
+          <div class="mb-3">
+
+
+            <label
+              for="cardParallel"
+              class="form-label"
+            >
+
+              Parallel / Variation
+
+            </label>
+
+
+            <input
+              id="cardParallel"
+              class="form-control"
+              type="text"
+            >
+
+
+          </div>
+
+
+
+          <!-- ESTIMATED VALUE -->
+
+          <div class="mb-4">
+
+
+            <label
+              for="cardValue"
+              class="form-label"
+            >
+
+              Estimated Value
+
+            </label>
+
+
+            <div class="input-group">
+
+
+              <span class="input-group-text">
+
+                $
+
+              </span>
+
+
+              <input
+                id="cardValue"
+                class="form-control"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+              >
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- SAVE -->
+
+          <button
+            class="btn btn-dark w-100 save-card-btn"
+            type="submit"
+          >
+
+            Add To My Vault
+
+          </button>
+
+
+
+          <button
+            id="backToMatchesBtn"
+            class="btn btn-link w-100 mt-2"
+            type="button"
+          >
+
+            Back To Matches
+
+          </button>
+
+
+        </form>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         SCREEN 5
+         COLLECTION
+    ====================================== -->
+
+    <section
+      id="collectionScreen"
+      class="screen"
+    >
+
 
       <div class="collection-header">
+
+
         <div>
-          <p class="eyebrow mb-1">LIBRARY</p>
-          <h2 class="page-title">My Collection</h2>
+
+
+          <p class="eyebrow mb-1">
+
+            MY VAULT
+
+          </p>
+
+
+          <h2 class="page-title">
+
+            My Collection
+
+          </h2>
+
+
         </div>
-        <span class="collection-count" id="collectionCount">0 cards</span>
+
+
+
+        <span
+          class="collection-count"
+          id="collectionCount"
+        >
+
+          0 cards
+
+        </span>
+
+
       </div>
+
+
+
+      <!-- SUMMARY -->
 
       <div class="summary-grid">
-        <article class="summary-card">
-          <span>Cards</span>
-          <strong id="totalCards">0</strong>
-        </article>
+
 
         <article class="summary-card">
-          <span>Estimated Value</span>
-          <strong id="totalValue">$0.00</strong>
+
+
+          <span>
+
+            Cards
+
+          </span>
+
+
+          <strong id="totalCards">
+
+            0
+
+          </strong>
+
+
         </article>
+
+
+
+        <article class="summary-card">
+
+
+          <span>
+
+            Estimated Value
+
+          </span>
+
+
+          <strong id="totalValue">
+
+            $0.00
+
+          </strong>
+
+
+        </article>
+
+
       </div>
 
-      <div id="emptyCollection" class="empty-state">
-        <div class="empty-icon">◇</div>
-        <h3>No cards yet</h3>
-        <p>Your scanned and confirmed cards will appear here.</p>
-        <button class="btn btn-dark" id="emptyScanBtn">Scan First Card</button>
+
+
+      <!-- EMPTY COLLECTION -->
+
+      <div
+        id="emptyCollection"
+        class="empty-state"
+      >
+
+
+
+        <div class="empty-icon">
+
+          ◇
+
+        </div>
+
+
+        <h3>
+
+          No cards yet
+
+        </h3>
+
+
+        <p>
+
+          Your scanned and confirmed cards will appear here.
+
+        </p>
+
+
+        <button
+          class="btn btn-dark"
+          id="emptyScanBtn"
+          type="button"
+        >
+
+          Scan First Card
+
+        </button>
+
+
       </div>
 
-      <div id="collectionList" class="collection-list"></div>
+
+
+      <!-- SAVED CARD LIST -->
+
+      <div
+        id="collectionList"
+        class="collection-list"
+      >
+      </div>
+
 
     </section>
+
 
   </main>
 
 
-  <!-- FIXED BOTTOM NAV -->
-  <nav class="bottom-nav" aria-label="Main navigation">
 
-    <button class="nav-item active"
-            id="scanNavBtn"
-            data-screen="scannerScreen">
-      <span class="nav-icon">▣</span>
-      <span>Scan</span>
+  <!-- =====================================
+       FIXED BOTTOM NAV
+  ====================================== -->
+
+  <nav
+    class="bottom-nav"
+    aria-label="Main navigation"
+  >
+
+
+    <!-- SCAN -->
+
+    <button
+      class="nav-item active"
+      id="scanNavBtn"
+      type="button"
+    >
+
+
+      <span class="nav-icon">
+
+        ▣
+
+      </span>
+
+
+      <span>
+
+        Scan
+
+      </span>
+
+
     </button>
 
-    <button class="nav-refresh"
-            id="bottomRefreshBtn"
-            aria-label="Refresh scanner"
-            title="Refresh scanner">
+
+
+    <!-- RESET -->
+
+    <button
+      class="nav-refresh"
+      id="bottomRefreshBtn"
+      type="button"
+      aria-label="Refresh scanner"
+      title="Refresh scanner"
+    >
+
       ↻
+
     </button>
 
-    <button class="nav-item"
-            id="collectionNavBtn"
-            data-screen="collectionScreen">
-      <span class="nav-icon">▤</span>
-      <span>My Collection</span>
+
+
+    <!-- COLLECTION -->
+
+    <button
+      class="nav-item"
+      id="collectionNavBtn"
+      type="button"
+    >
+
+
+      <span class="nav-icon">
+
+        ▤
+
+      </span>
+
+
+      <span>
+
+        My Collection
+
+      </span>
+
+
     </button>
+
 
   </nav>
 
 
-  <canvas id="captureCanvas" class="d-none"></canvas>
+
+  <!-- =====================================
+       HIDDEN PHOTO CANVAS
+  ====================================== -->
+
+  <canvas
+    id="captureCanvas"
+    class="d-none"
+  >
+  </canvas>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-          crossorigin="anonymous"></script>
+
+  <!-- =====================================
+       BOOTSTRAP 5
+       BUNDLE INCLUDES POPPER
+  ====================================== -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous">
+  </script>
+
+
+
+  <!-- =====================================
+       CARD VAULT JAVASCRIPT
+  ====================================== -->
 
   <script src="js/app.js"></script>
 
+
 </body>
+
 </html>
