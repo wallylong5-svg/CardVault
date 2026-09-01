@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101828">
+
+  <title>Card Vault Scanner</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <main class="app-shell">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div>
+        <p class="eyebrow mb-1">PERSONAL COLLECTION</p>
+        <h1 class="app-title mb-0">Card Vault</h1>
+      </div>
+
+      <button class="icon-btn" id="headerRefreshBtn" type="button"
+              aria-label="Reset scanner" title="Reset scanner">
+        ↻
+      </button>
+    </header>
+
+
+    <!-- SCANNER SCREEN -->
+    <section id="scannerScreen" class="screen active-screen">
+
+      <div class="scanner-intro">
+        <span class="status-dot"></span>
+        Ready to scan
+      </div>
+
+      <div class="camera-card">
+
+        <div class="camera-stage" id="cameraStage">
+
+          <video id="cameraPreview"
+                 autoplay
+                 playsinline
+                 muted></video>
+
+          <img id="capturedImage"
+               class="captured-image d-none"
+               alt="Captured card preview">
+
+          <div id="cameraPlaceholder" class="camera-placeholder">
+            <div class="placeholder-icon">▣</div>
+            <h2>Scan a card</h2>
+            <p>Photograph the front of the card to begin.</p>
+          </div>
+
+          <div class="card-guide" aria-hidden="true">
+            <span class="guide-corner top-left"></span>
+            <span class="guide-corner top-right"></span>
+            <span class="guide-corner bottom-left"></span>
+            <span class="guide-corner bottom-right"></span>
+          </div>
+
+        </div>
+
+        <div class="scanner-controls">
+
+          <button id="startCameraBtn"
+                  class="btn btn-dark action-button">
+            Open Camera
+          </button>
+
+          <button id="captureBtn"
+                  class="capture-button d-none"
+                  type="button"
+                  aria-label="Capture card photo">
+            <span></span>
+          </button>
+
+          <button id="retakeBtn"
+                  class="btn btn-outline-dark action-button d-none">
+            Retake
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- RESULT / PLACEHOLDER FOR EBAY LATER -->
+      <section id="scanResult" class="result-card d-none">
+        <div class="result-heading">
+          <div>
+            <p class="eyebrow mb-1">SCAN CAPTURED</p>
+            <h2 class="h5 mb-0">Ready for identification</h2>
+          </div>
+          <span class="badge text-bg-success">Photo saved</span>
+        </div>
+
+        <p class="result-copy">
+          In the next stage, this image will be sent to our server and used
+          to find matching eBay listings.
+        </p>
+
+        <div class="mock-value-row">
+          <div>
+            <span class="value-label">eBay Market Estimate</span>
+            <strong>—</strong>
+          </div>
+
+          <div>
+            <span class="value-label">Matches</span>
+            <strong>—</strong>
+          </div>
+        </div>
+
+        <button class="btn btn-primary w-100 mt-3" disabled>
+          eBay Lookup Coming Next
+        </button>
+      </section>
+
+
+      <!-- HIDDEN MOBILE CAMERA INPUT FALLBACK -->
+      <input id="mobileCaptureInput"
+             class="visually-hidden"
+             type="file"
+             accept="image/*"
+             capture="environment">
+
+    </section>
+
+
+    <!-- COLLECTION SCREEN -->
+    <section id="collectionScreen" class="screen">
+
+      <div class="collection-header">
+        <div>
+          <p class="eyebrow mb-1">LIBRARY</p>
+          <h2 class="page-title">My Collection</h2>
+        </div>
+        <span class="collection-count" id="collectionCount">0 cards</span>
+      </div>
+
+      <div class="summary-grid">
+        <article class="summary-card">
+          <span>Cards</span>
+          <strong id="totalCards">0</strong>
+        </article>
+
+        <article class="summary-card">
+          <span>Estimated Value</span>
+          <strong id="totalValue">$0.00</strong>
+        </article>
+      </div>
+
+      <div id="emptyCollection" class="empty-state">
+        <div class="empty-icon">◇</div>
+        <h3>No cards yet</h3>
+        <p>Your scanned and confirmed cards will appear here.</p>
+        <button class="btn btn-dark" id="emptyScanBtn">Scan First Card</button>
+      </div>
+
+      <div id="collectionList" class="collection-list"></div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FIXED BOTTOM NAV -->
+  <nav class="bottom-nav" aria-label="Main navigation">
+
+    <button class="nav-item active"
+            id="scanNavBtn"
+            data-screen="scannerScreen">
+      <span class="nav-icon">▣</span>
+      <span>Scan</span>
+    </button>
+
+    <button class="nav-refresh"
+            id="bottomRefreshBtn"
+            aria-label="Refresh scanner"
+            title="Refresh scanner">
+      ↻
+    </button>
+
+    <button class="nav-item"
+            id="collectionNavBtn"
+            data-screen="collectionScreen">
+      <span class="nav-icon">▤</span>
+      <span>My Collection</span>
+    </button>
+
+  </nav>
+
+
+  <canvas id="captureCanvas" class="d-none"></canvas>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <script src="js/app.js"></script>
+
+</body>
+</html>
