@@ -54,7 +54,7 @@
   // CONFIG
   // ============================================================
 
-  const API_BASE_URL = ""; // Example later: "https://your-cardvault-worker.workers.dev"
+ const API_BASE_URL = "https://cardvault-api.wallylong5.workers.dev";
 
   const MAX_IMAGE_EDGE = 1400;
   const JPEG_QUALITY = 0.86;
